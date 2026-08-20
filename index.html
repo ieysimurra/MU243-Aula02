@@ -3,647 +3,814 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Arte do Ruído: Futurismo e Dadaísmo</title>
+    <title>Hub Educacional: A Arte do Ruído e do Som Indefinido</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutral Harmony -->
-    <!-- Application Structure Plan: A thematic, single-page narrative application. The structure begins with historical context (Section 1: The Stage), then allows deep-dives into the two core movements via an interactive tabbed interface (Section 2: The Movements), visually contrasts them with a dynamic radar chart (Section 3: The Duel), and concludes by tracing their influence over time with an interactive timeline (Section 4: The Legacy). Two new tabs are added for interactive exercises and comprehensive bibliographic references, enhancing the learning and research experience. This structure was chosen to transform a linear lecture into an exploratory journey, encouraging user interaction and comparison for better synthesis of the material, and providing self-assessment and further study resources. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Historical Context -> Goal: Inform -> Viz/Method: Text blocks + HTML/CSS diagram for conceptual evolution -> Justification: Sets the stage effectively.
-        - Report Info: Details of Futurism/Dadaism -> Goal: Organize/Compare -> Viz/Method: Interactive Tabs, HTML/CSS cards, an interactive grid for Intonarumori families, and embedded HTML table for technical details. Image placeholders added for visual context. -> Justification: Allows focused study and direct comparison, integrating detailed technical information and visual cues.
-        - Report Info: Comparative Table -> Goal: Analyze Relationships -> Viz/Method: Radar Chart (Chart.js/Canvas) -> Justification: Provides a more dynamic and intuitive visual comparison than a static table. Interaction via tooltips adds depth.
-        - Report Info: Legacy/Influence -> Goal: Show Change/Connection -> Viz/Method: Vertical interactive timeline (HTML/CSS) -> Justification: Visually represents the flow of influence and cause-and-effect better than a list. Clickable elements reveal deeper information on demand.
-        - New Content: Exercises -> Goal: Assess/Reinforce -> Viz/Method: Interactive Q&A with revealable answers and comments (HTML/JS). -> Justification: Provides a self-assessment tool for active learning.
-        - New Content: References -> Goal: Provide Resources -> Viz/Method: Categorized list of bibliographic bibliographic references (HTML). -> Justification: Supports further academic exploration.
-        - Library/Method: Vanilla JS for interactions, Chart.js for visualization. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Chosen Palette: Warm Minimalist Harmony (#FDFDFB, #EADBC8, #DAC0A3, #A47551, #4B3F38) -->
+    <!-- Application Structure Plan:
+        SPA Completa de Pós-Graduação integrando o material aprofundado dos Dossiês Avançados de Futurismo e Dadaísmo.
+        1. Cabeçalho com busca dinâmica e navegação em abas temáticas.
+        2. Visão Geral & Ruído no Século XX: Teoria acústica, inarmonicidade, psicoacústica e a virada epistemológica.
+        3. Dossiê Futurismo Expandido: Do manifesto de 1909 e estética da velocidade às 'parole in libertà', engenharia dos Intonarumori, Pratella, Segundo Futurismo (Aeropittura/Arte Meccanica), dimensões ocultistas de Russolo, intermedialidade e contradições políticas (Fascismo, militarismo e colonialismo).
+        4. Dossiê Dadaísmo & Anti-Arte: Do Cabaret Voltaire (Ball e Hennings) e poética do acaso aos 6 polos (Zurique, Berlim, Hannover, Colônia, NY, Paris), fotomontagem política (Höch/Heartfield), Merzbau, análise aprofundada da Ursonate e teoria institucional da arte (Peter Bürger).
+        5. A "Escultura Musical" & Readymade Sonoro (Duchamp & Cage): A Green Box (c. 1913), Erratum Musical, desmaterialização do objeto e 4'33".
+        6. Compositoras & Pioneiras do Ruído: Oliveros (Deep Listening), Radigue (Síntese Modular/Drones), Pamela Z (Bricolagem Vocal) e Spiegel (GROOVE/Computação).
+        7. Música Popular, Brasileira & Vertentes Acústicas: Distorção no Rock, Glitch/Sampling, Tropicália (Bat Macumba), Punk/DIY BR, Jorge Antunes, Naná Vasconcelos e Hermeto Pascoal.
+        8. Galeria Visual & Laboratório Sonoro Interativo: Diagramas espectrais dinâmicos com Chart.js, radar de filosofias e Centro Audiovisual com carregamento dinâmico (YouTube embeds) e imagens de obras icônicas.
+        9. Exercícios de Fixação com Gabarito Analítico e Comentado.
+        10. Bibliografia Especializada ABNT e Arquivos Digitais.
+    -->
     <style>
         body {
             background-color: #FDFDFB;
             font-family: 'Montserrat', sans-serif;
             color: #4B3F38;
         }
-        h1, h2, h3 {
+        h1, h2, h3, h4, .font-serif-title {
             font-family: 'Roboto Slab', serif;
         }
-        .accent-color { background-color: #EADBC8; }
-        .accent-color-dark { background-color: #DAC0A3; }
-        .accent-text { color: #A47551; }
-        .nav-link {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-bottom: 2px solid transparent;
+        .bg-warm-neutral { background-color: #FDFDFB; }
+        .bg-warm-accent { background-color: #EADBC8; }
+        .bg-warm-dark-accent { background-color: #DAC0A3; }
+        .text-warm-accent { color: #A47551; }
+        .border-warm-accent { border-color: #A47551; }
+        
+        .nav-btn {
+            transition: all 0.25s ease;
+            padding: 0.5rem 0.9rem;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
         }
-        .nav-link:hover, .nav-link.active {
+        .nav-btn:hover, .nav-btn.active {
             border-bottom-color: #A47551;
             color: #A47551;
+            background-color: rgba(234, 219, 200, 0.35);
         }
-        .tab-button {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .tab-button.active {
-            background-color: #A47551;
-            color: #FDFDFB;
-        }
-        .content-section {
+
+        .tab-content {
             display: none;
         }
-        .content-section.active {
+        .tab-content.active {
             display: block;
         }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 1.25rem;
-            left: -0.45rem;
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 9999px;
-            background-color: #DAC0A3;
-            border: 3px solid #FDFDFB;
-            z-index: 10;
-        }
-        .timeline-content {
-            transition: all 0.5s ease-in-out;
-            max-height: 0;
-            overflow: hidden;
-        }
-        .timeline-item.active .timeline-content {
-            max-height: 500px;
-        }
+
         .chart-container {
             position: relative;
-            margin: auto;
-            height: 70vh;
-            width: 90vw;
-            max-width: 600px;
-            max-height: 600px;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 380px;
+            max-height: 400px;
         }
+
         .answer-box {
             display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background-color: #f0f0f0;
-            border-radius: 0.5rem;
-            border-left: 4px solid #A47551;
+            transition: all 0.3s ease;
+        }
+
+        .media-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+        .media-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased min-h-screen flex flex-col">
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-bold accent-text">A Arte do Ruído</h1>
-            <div class="hidden md:flex space-x-4 text-sm font-semibold">
-                <a href="#introduction" class="nav-link">Introdução</a>
-                <a href="#movements" class="nav-link">Movimentos</a>
-                <a href="#comparison" class="nav-link">Comparativo</a>
-                <a href="#legacy" class="nav-link">Legado</a>
-                <a href="#exercises" class="nav-link" id="tab-exercises">Exercícios</a>
-                <a href="#references" class="nav-link" id="tab-references">Referências</a>
+    <!-- CABEÇALHO E NAVEGAÇÃO -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                <span class="text-3xl">🔊</span>
+                <div>
+                    <h1 class="text-lg font-bold text-warm-accent leading-tight">Hub Acadêmico: A Arte do Ruído & Som Indefinido</h1>
+                    <p class="text-xs text-gray-500">Música do Século XX, Vanguardas Históricas, Eletroacústica & Vertentes Brasileiras</p>
+                </div>
+            </div>
+
+            <!-- BUSCA RÁPIDA -->
+            <div class="w-full sm:w-auto mb-2 sm:mb-0">
+                <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Filtrar conceito, autor, obra..." 
+                       class="w-full sm:w-72 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-warm-accent bg-gray-50">
+            </div>
+        </div>
+
+        <!-- BARRA DE NAVEGAÇÃO EM ABAS -->
+        <nav class="bg-gray-50 border-t border-gray-100 overflow-x-auto">
+            <div class="container mx-auto px-4 flex whitespace-nowrap text-xs sm:text-sm">
+                <button onclick="switchMainTab('visao-geral')" class="nav-btn active" id="btn-visao-geral">Visão Geral & Acústica</button>
+                <button onclick="switchMainTab('futurismo')" class="nav-btn" id="btn-futurismo">Dossiê Futurismo</button>
+                <button onclick="switchMainTab('dadaismo')" class="nav-btn" id="btn-dadaismo">Dossiê Dadaísmo</button>
+                <button onclick="switchMainTab('duchamp')" class="nav-btn" id="btn-duchamp">Duchamp & Escultura Musical</button>
+                <button onclick="switchMainTab('compositoras')" class="nav-btn" id="btn-compositoras">Compositoras & Ruído</button>
+                <button onclick="switchMainTab('musica-popular')" class="nav-btn" id="btn-musica-popular">Música Popular & BR</button>
+                <button onclick="switchMainTab('galeria-midia')" class="nav-btn" id="btn-galeria-midia">Galeria & Mídia</button>
+                <button onclick="switchMainTab('laboratorio')" class="nav-btn" id="btn-laboratorio">Laboratório Espectral</button>
+                <button onclick="switchMainTab('exercicios')" class="nav-btn" id="btn-exercicios">Exercícios</button>
+                <button onclick="switchMainTab('bibliografia')" class="nav-btn" id="btn-bibliografia">Bibliografia & Fontes</button>
             </div>
         </nav>
     </header>
 
-    <main>
-        <section id="introduction" class="py-20 px-6 bg-cover bg-center" style="background-image: linear-gradient(rgba(253, 253, 251, 0.8), rgba(253, 253, 251, 1)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80');">
-            <div class="container mx-auto text-center">
-                <h2 class="text-4xl md:text-6xl font-bold mb-4">A Revolução Sonora do Século XX</h2>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-700">
-                    O início do século XX foi uma era de ruptura. Impulsionados pela industrialização, urbanização e pelo trauma da guerra, os artistas de vanguarda buscaram uma nova linguagem que refletisse a velocidade e o caos da era moderna, dando origem a uma transformação radical: a introdução do ruído na música.
-                </p>
-            </div>
-            <div class="container mx-auto mt-16 grid md:grid-cols-3 gap-8 text-left">
-                <div class="p-6 accent-color rounded-lg shadow-md">
-                    <h3 class="text-xl font-bold mb-2">Analogia: A Orquestra da Cidade</h3>
-                    <p class="text-sm text-gray-800">Imagine o mundo pré-industrial, dominado pelos sons da natureza. Com a Revolução Industrial, uma nova "sinfonia" emergiu: o ruído das fábricas, trens e da vida urbana. A música, antes um reflexo da tranquilidade, começou a incorporar e celebrar essa nova e dinâmica paisagem sonora.</p>
-                </div>
-                <div class="p-6 accent-color rounded-lg shadow-md">
-                    <h3 class="text-xl font-bold mb-2">A Construção do Conceito</h3>
-                    <p class="text-sm text-gray-800">O entendimento do "ruído" evoluiu. Para <strong class="accent-text">Russolo</strong>, era um som externo a ser musicalizado. Para <strong class="accent-text">Cowell</strong>, uma propriedade acústica inerente a todos os instrumentos. Para <strong class="accent-text">Cage</strong>, tornou-se "todo-som", onde a escuta ativa transforma qualquer som em música.</p>
-                </div>
-                <div class="p-6 accent-color rounded-lg shadow-md">
-                    <h3 class="text-xl font-bold mb-2">Contexto e Impulso</h3>
-                    <p class="text-sm text-gray-800">A tecnologia não foi apenas musa, fornecendo os sons da indústria, mas também o meio. A capacidade de gravar e manipular sons permitiu que o "não-musical" fosse integrado em composições, pavimentando o caminho para a música eletroacústica e a arte sonora.</p>
-                </div>
-            </div>
-        </section>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-grow container mx-auto px-4 py-8">
 
-        <section id="movements" class="py-20 px-6">
-            <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold">Os Movimentos Pioneiros</h2>
-                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">Explore o Futurismo e o Dadaísmo, duas vanguardas que, com filosofias distintas, foram as primeiras a reivindicar o ruído como material artístico legítimo.</p>
-                </div>
-                <div class="flex justify-center mb-8 border border-gray-200 rounded-full p-1 max-w-lg mx-auto">
-                    <button id="tab-futurism" class="tab-button w-1/2 py-2 px-4 rounded-full text-sm font-semibold active">Futurismo</button>
-                    <button id="tab-dadaism" class="tab-button w-1/2 py-2 px-4 rounded-full text-sm font-semibold">Dadaísmo</button>
+        <!-- 1. VISÃO GERAL & RUÍDO NO SÉCULO XX -->
+        <section id="tab-visao-geral" class="tab-content active space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div class="max-w-4xl mx-auto text-center space-y-3">
+                    <span class="inline-block px-3 py-1 bg-warm-accent text-xs font-semibold rounded-full text-gray-800">Fundamentação Canônica</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">Do Ruído na Música do Século XX ao Som de Altura Indefinida</h2>
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                        A virada do século XX marcou a desintegração da hegemonia do sistema tonal temperado e a emancipação do timbre[cite: 6]. O que antes era considerado ruído e distúrbio inaceitável tornou-se o elemento fulcral de uma nova poética sonora baseada em inarmonicidade, densidade espectral, gesto e textura[cite: 6].
+                    </p>
                 </div>
 
-                <div id="content-futurism" class="content-section active">
-                    <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
-                        <h3 class="text-2xl font-bold mb-4 accent-text">Futurismo: A Estética da Máquina</h3>
-                        <p class="mb-6">Um movimento que glorificava a velocidade, a tecnologia e a energia da era industrial. Para os Futuristas, o ruído era o som do progresso, um elemento a ser estudado, controlado e organizado em uma nova forma de música.</p>
-                        
-                        <div class="flex justify-center my-8">
-                            <img src="https://placehold.co/400x250/EADBC8/4B3F38?text=Luigi+Russolo+e+Intonarumori" alt="" class="rounded-lg shadow-md">
-                        </div>
+                <div class="grid md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-warm-neutral p-5 rounded-lg border border-gray-200 space-y-2">
+                        <h3 class="font-bold text-sm sm:text-base text-warm-accent">🌈 Analogia: Arco-Íris vs. Névoa Densa</h3>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-normal">
+                            No arco-íris, cada cor corresponde a um comprimento de onda discriminável (como a frequência fundamental periódica $F_0$ de uma nota)[cite: 6]. A névoa densa é um contínuo difuso e textural: não há uma cor pontual isolável, mas sim graus de densidade e luminosidade (altura relativa e espectro inarmônico)[cite: 6].
+                        </p>
+                    </div>
 
-                        <h4 class="font-bold text-lg mb-4">Os Intonarumori: A Orquestra de Ruídos</h4>
-                        <p class="mb-6 text-sm">Criados por Luigi Russolo, os *Intonarumori* ("barulhadores") eram instrumentos mecânicos projetados para produzir e controlar diferentes categorias de ruído. Clique em uma família para explorar os sons que eles buscavam "musicalizar".</p>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
-                            <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Estrondos', 'Estrondos, trovões, explosões, quedas, choques.')">
-                                <span class="text-2xl">💥</span>
-                                <p class="font-semibold text-xs mt-1">Estrondos</p>
-                            </div>
-                             <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Assobios', 'Assobios, silvos, bufos.')">
-                                <span class="text-2xl">💨</span>
-                                <p class="font-semibold text-xs mt-1">Assobios</p>
-                            </div>
-                             <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Sussurros', 'Sussurros, murmúrios, resmungos, zumbidos, gorgolejos.')">
-                                <span class="text-2xl">🤫</span>
-                                <p class="font-semibold text-xs mt-1">Sussurros</p>
-                            </div>
-                             <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Atritos', 'Atritos, rangidos, estalos.')">
-                                <span class="text-2xl">🔩</span>
-                                <p class="font-semibold text-xs mt-1">Atritos</p>
-                            </div>
-                            <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Percussão', 'Ruídos de percussão sobre metais, madeiras, peles, pedras.')">
-                                <span class="text-2xl">🥁</span>
-                                <p class="font-semibold text-xs mt-1">Percussão</p>
-                            </div>
-                            <div class="p-3 accent-color rounded-md cursor-pointer hover:shadow-xl transition-shadow" onclick="showNoiseDetails('Vozes', 'Gritos, gemidos, risadas, soluços de animais e humanos.')">
-                                <span class="text-2xl">🗣️</span>
-                                <p class="font-semibold text-xs mt-1">Vozes</p>
-                            </div>
-                        </div>
-                        <div id="noise-details" class="mt-6 p-4 accent-color-dark rounded-md text-white text-center hidden">
-                            <h5 id="noise-title" class="font-bold"></h5>
-                            <p id="noise-description" class="text-sm"></p>
-                        </div>
+                    <div class="bg-warm-neutral p-5 rounded-lg border border-gray-200 space-y-2">
+                        <h3 class="font-bold text-sm sm:text-base text-warm-accent">🔬 Inarmonicidade & Acústica</h3>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-normal">
+                            Sons de altura definida exibem parciais harmônicos múltiplos inteiros ($f_n = n \cdot f_1$)[cite: 6]. Sons de altura não definida possuem espectros aperiódicos e inarmônicos, onde a energia é distribuída em bandas contínuas ou relações irracionais, desafiando a seletividade coclear de pitch[cite: 6].
+                        </p>
+                    </div>
 
-                        <h4 class="font-bold text-lg mt-8 mb-4">Tabela 1: Tipos de *Intonarumori* e Seus Mecanismos de Produção Sonora</h4>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-                                <thead>
-                                    <tr class="bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        <th class="py-3 px-4 border-b-2 border-gray-200">Nome (Português/Italiano)</th>
-                                        <th class="py-3 px-4 border-b-2 border-gray-200">Mecanismo de Excitação Principal</th>
-                                        <th class="py-3 px-4 border-b-2 border-gray-200">Características Sonoras</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100">
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Ululatore (Howler)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Roda lisa de madeira</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Notas longas e aveludadas, delicadas</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Gracidatore (Croaker)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Roda com formato específico para corda pinçada</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Sonoridades de corda pinçada, roucas</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Crepitatore (Cracker)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Roda de metal</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Sons de estalo, crepitação</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Scoppiatore (Burster)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Mecanismo de percussão</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Sons de explosão, estourar</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Sibilatore (Whistler)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Mecanismo de ar/fricção</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Assobios de alta frequência</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Gorgogliatore (Gurgler)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Mecanismo de líquido/ar</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Sons de gorgolejo, borbulhar</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="py-3 px-4 text-sm text-gray-700">Ronzatore (Hummer)</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Mecanismo elétrico/percussão</td>
-                                        <td class="py-3 px-4 text-sm text-gray-700">Zumbido, percussão elétrica</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="bg-warm-neutral p-5 rounded-lg border border-gray-200 space-y-2">
+                        <h3 class="font-bold text-sm sm:text-base text-warm-accent">🧠 Psicoacústica da Escuta</h3>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-normal">
+                            O cérebro infere altura relativa e propriedades timbrísticas através dos transientes de ataque (ruído mecânico inicial) e da taxa de decaimento espectral, deslocando o foco composicional da linha melódica para o envelope morfológico[cite: 6].
+                        </p>
                     </div>
                 </div>
 
-                <div id="content-dadaism" class="content-section">
-                    <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
-                        <h3 class="text-2xl font-bold mb-4 accent-text">Dadaísmo: A Anti-Arte</h3>
-                        <p class="mb-6">Nascido do trauma da Primeira Guerra Mundial, o Dadaísmo era uma revolta contra a lógica e a razão burguesa. O ruído, aqui, era uma ferramenta de provocação e absurdo, um reflexo do caos do mundo e uma negação da própria definição de arte.</p>
+                <div class="p-5 bg-warm-accent/20 rounded-lg border border-warm-accent text-center space-y-2">
+                    <h4 class="font-bold text-sm text-gray-800 uppercase tracking-wide">A Grande Virada Ontológica da Composição</h4>
+                    <p class="text-xs sm:text-sm text-gray-700 italic max-w-3xl mx-auto">
+                        "Antes: Composição = Organização de notas e alturas no sistema temperado[cite: 1, 2]. Depois das vanguardas: Composição = Organização de fenômenos sonoros, campos de forças, ruídos, ações e relações[cite: 1, 2]."
+                    </p>
+                </div>
+            </div>
+        </section>
 
-                        <div class="flex justify-center my-8">
-                            <img src="https://placehold.co/400x250/EADBC8/4B3F38?text=Kurt+Schwitters+e+Ursonate" alt="" class="rounded-lg shadow-md">
-                        </div>
+        <!-- 2. DOSSIÊ APROFUNDADO DO FUTURISMO -->
+        <section id="tab-futurismo" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Dossiê Acadêmico Avançado</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">O Movimento Futurista (1909–1944): Teoria, Técnica e Política</h2>
+                </div>
 
-                        <h4 class="font-bold text-lg mb-4">Ursonate: A Sonata Primordial</h4>
-                        <p class="mb-4 text-sm">A "Ursonate" de Kurt Schwitters é a obra-prima da poesia sonora Dadaísta. É um poema de quarenta minutos composto inteiramente por fonemas e sons sem palavras, aplicando a estrutura de uma sonata clássica ao absurdo. A voz humana se torna um instrumento de ruído, desprovida de significado literal.</p>
-                        <div class="p-4 accent-color rounded-md font-mono text-center text-gray-700">
-                            <p>"Fümms bö wö tää zää Uu,</p>
-                            <p>pögiff, kwiiee."</p>
-                            <p class="text-xs mt-2">- Trecho da Ursonate</p>
+                <div class="prose max-w-none text-gray-700 text-sm sm:text-base space-y-5 leading-relaxed">
+                    <p>
+                        O Futurismo italiano não foi meramente uma estética da velocidade; foi um projeto integral de fabricação do futuro e produção de uma nova sensibilidade moderna[cite: 1]. Surgido em uma Itália que vivenciava simultaneamente o atraso agrário e a industrialização acelerada do Norte (Milão), o movimento atuou como uma fantasia compensatória de modernização[cite: 1].
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 my-4">
+                        <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-2">
+                            <h3 class="font-bold text-base text-gray-800">1. O Manifesto de 1909 & A Mídia como Obra</h3>
+                            <p class="text-xs sm:text-sm text-gray-600">
+                                Publicado no parisiense <em>Le Figaro</em> por F. T. Marinetti em 20 de fevereiro de 1909, o manifesto utiliza o mito do acidente automobilístico como batismo tecnológico[cite: 1, 4]. O manifesto é inaugurado como tecnologia cultural: publicidade, polarização, hipérbole e destruição retórica do "passadismo"[cite: 1, 4].
+                            </p>
                         </div>
-                        
-                        <h4 class="font-bold text-lg mt-6 mb-4">Características Musicais</h4>
-                         <ul class="list-disc list-inside text-sm space-y-2">
-                            <li><strong class="font-semibold">Aleatoriedade:</strong> Usar o acaso como princípio de composição, rejeitando o controle do autor.</li>
-                            <li><strong class="font-semibold">Objetos Encontrados:</strong> Elevar objetos cotidianos (e seus sons) ao status de arte, como nos "Ready-Mades" de Duchamp.</li>
-                            <li><strong class="font-semibold">Performance Provocadora:</strong> Performances "bruitistas" no Cabaret Voltaire, usando sirenes, chocalhos e gritos para chocar a audiência.</li>
-                        </ul>
+                        <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-2">
+                            <h3 class="font-bold text-base text-gray-800">2. Parole in Libertà & Notação Visual</h3>
+                            <p class="text-xs sm:text-sm text-gray-600">
+                                Marinetti destrói a sintaxe linear com as <em>palavras em liberdade</em> (ex: <em>Zang Tumb Tuuum</em>, 1914)[cite: 1, 4]. A página torna-se partitura performativa onde tamanho de fonte, sinais matemáticos e onomatopeias materializam a energia e o som[cite: 1, 4].
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-800">3. Luigi Russolo, "A Arte dos Ruídos" (1913) & O Ocultismo</h3>
+                    <p>
+                        Em 11 de março de 1913, Luigi Russolo publica <em>L'arte dei rumori</em>[cite: 1, 4]. Sua tese central estabelece que a máquina e o ambiente industrial transformaram historicamente a escuta humana, exigindo uma nova música[cite: 1, 4]. Pesquisas recentes de Luciano Chessa demonstram que Russolo unia o fascínio mecânico a interesses em teosofia, ocultismo e sinestesia, concebendo o ruído como vibração cósmica[cite: 1].
+                    </p>
+
+                    <!-- TABELA EXPANDIDA DAS 6 FAMÍLIAS DE RUÍDOS DE RUSSOLO -->
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full text-xs sm:text-sm text-left border border-gray-200 rounded-lg">
+                            <thead class="bg-warm-accent text-gray-800 uppercase text-xs">
+                                <tr>
+                                    <th class="p-2.5 sm:p-3 border-b">Família de Ruído</th>
+                                    <th class="p-2.5 sm:p-3 border-b">Fenômenos Sonoros Acústicos</th>
+                                    <th class="p-2.5 sm:p-3 border-b">Instrumento Intonarumori Correspondente</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">1. Estrondos</td><td class="p-2.5 sm:p-3">Trovões, explosões, detonações, quedas violentas</td><td class="p-2.5 sm:p-3">Scoppiatore (Estourador)</td></tr>
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">2. Assobios</td><td class="p-2.5 sm:p-3">Sibilos, bufos, ruídos contínuos de ar e vapor</td><td class="p-2.5 sm:p-3">Sibilatore (Assobiador)</td></tr>
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">3. Sussurros</td><td class="p-2.5 sm:p-3">Murmúrios, resmungos, zumbidos elétricos, gorgolejos</td><td class="p-2.5 sm:p-3">Ronzatore (Zumbidor) / Gorgogliatore</td></tr>
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">4. Atritos</td><td class="p-2.5 sm:p-3">Rangidos, estalos, fricções de metal, madeira e pedra</td><td class="p-2.5 sm:p-3">Crepitatore (Crepitador) / Striditore</td></tr>
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">5. Percussão</td><td class="p-2.5 sm:p-3">Impactos sobre peles, pedras, cerâmica e metais</td><td class="p-2.5 sm:p-3">Gracidatore (Rouquejador)</td></tr>
+                                <tr class="hover:bg-gray-50"><td class="p-2.5 sm:p-3 font-semibold">6. Vozes</td><td class="p-2.5 sm:p-3">Gritos, gemidos, risadas e uivos humanos/animais</td><td class="p-2.5 sm:p-3">Ululatore (Uivador)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-800">4. Segundo Futurismo, Aeropittura e Radiocomunicação</h3>
+                    <p>
+                        A partir dos anos 1920, com Enrico Prampolini, Fortunato Depero (<em>Depero Futurista</em>, o livro parafusado de 1927) e a <strong>Aeropittura</strong> (Tullio Crali, Gerardo Dottori, Benedetta Cappa), o horizonte perceptivo desloca-se para a vista aérea em mergulho e para o rádio cósmico (manifesto <em>La Radia</em> de Marinetti e Masnata, 1933)[cite: 1, 4].
+                    </p>
+
+                    <h3 class="text-lg font-bold text-gray-800">5. A Contradição Política: Fascismo, Guerra e Misoginia</h3>
+                    <p>
+                        O Futurismo não pode ser moralmente higienizado[cite: 1]. Seu militarismo, sua defesa da guerra como "única higiene do mundo" e a fundação do Partido Político Futurista (1918) culminaram na absorção parcial pelo fascismo de Mussolini[cite: 1, 4]. A radicalidade formal coexistiu tragicamente com o autoritarismo político e o chauvinismo colonialista italiano[cite: 1, 4].
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. DOSSIÊ APROFUNDADO DO DADAÍSMO -->
+        <section id="tab-dadaismo" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Dossiê Acadêmico Avançado</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">O Movimento Dada: Redes, Acaso, Anti-Arte e a Crise da Razão</h2>
+                </div>
+
+                <div class="prose max-w-none text-gray-700 text-sm sm:text-base space-y-5 leading-relaxed">
+                    <p>
+                        Dada não foi um estilo, mas uma crise deliberadamente produzida no conceito ocidental de arte[cite: 2]. Nascido em 1916 no <strong>Cabaret Voltaire</strong> em Zurique (cofundado por Hugo Ball e Emmy Hennings), o movimento foi uma resposta visceral ao genocídio industrial da Primeira Guerra Mundial[cite: 2, 3]. Se a "Razão burguesa" produziu as trincheiras e o gás venenoso, sua linguagem e estética deviam ser implodidas[cite: 2, 3].
+                    </p>
+
+                    <!-- POLOS INTERNACIONAIS DADA -->
+                    <div class="grid md:grid-cols-3 gap-4 my-4">
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Zurique & Genebra</h4>
+                            <p class="text-xs text-gray-600 mt-1">Exílio neutro, poesia fonética (Ball em <em>Karawane</em>), poemas simultâneos (Tzara, Huelsenbeck, Janco) e máscaras rituais[cite: 2, 3].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Berlim (Club Dada)</h4>
+                            <p class="text-xs text-gray-600 mt-1">Extremamente político: fotomontagem combativa de Hannah Höch, John Heartfield e George Grosz desmontando o militarismo de Weimar[cite: 2, 3].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Hannover (MERZ)</h4>
+                            <p class="text-xs text-gray-600 mt-1">Kurt Schwitters e a estética do detrito, o <em>Merzbau</em> arquitetônico e a monumental partitura vocal <em>Ursonate</em>[cite: 2, 3].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Nova York</h4>
+                            <p class="text-xs text-gray-600 mt-1">Duchamp, Picabia, Man Ray e Elsa von Freytag-Loringhoven com máquinas irônicas e desconstrução do objeto[cite: 2, 3].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Colônia</h4>
+                            <p class="text-xs text-gray-600 mt-1">Max Ernst e Johannes Baargeld com colagens biomórficas e subversão de manuais técnicos científicos[cite: 2].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-sm text-warm-accent">Paris</h4>
+                            <p class="text-xs text-gray-600 mt-1">Tzara, Ribemont-Dessaignes e Satie: festival de provocações públicas e transição conflituosa para o Surrealismo[cite: 2, 3].</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-800">1. A Operação do Acaso & Autoria Procedural</h3>
+                    <p>
+                        Em Dada, o acaso (Hans Arp deixando papéis caírem, Duchamp em <em>3 Standard Stoppages</em>) não elimina a autoria, mas a desloca de fabricante para propositor de regras e condições de contorno[cite: 2]. O compositor/artista cria o sistema e aceita a indeterminação do resultado[cite: 2].
+                    </p>
+
+                    <h3 class="text-lg font-bold text-gray-800">2. A Teoria da Vanguarda (Peter Bürger)</h3>
+                    <p>
+                        O filósofo Peter Bürger demonstrou que Dada não atacou apenas estilos artísticos anteriores, mas a própria <strong>"instituição arte"</strong> — a separação entre arte e vida prática[cite: 2]. Embora os museus tenham posteriormente absorvido esses objetos em um paradoxo histórico, Dada redefiniu para sempre o que pode ser admitido como material estético[cite: 2].
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. DUCHAMP & ESCULTURA MUSICAL -->
+        <section id="tab-duchamp" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Conceito e Desmaterialização</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Marcel Duchamp: "Escultura Musical" (c. 1913) & John Cage</h2>
+                </div>
+
+                <div class="prose max-w-none text-gray-700 text-sm sm:text-base space-y-5 leading-relaxed">
+                    <p>
+                        Marcel Duchamp não apenas reinventou as artes plásticas com o <em>Readymade</em> (como a <em>Bicycle Wheel</em> de 1913 e a <em>Fountain</em> de 1917 assinada por R. Mutt)[cite: 2, 3], mas elaborou anotações musicais que anteciparam em cinquenta anos a <em>Sound Art</em> e a Música Conceitual.
+                    </p>
+
+                    <div class="p-6 bg-warm-accent/30 rounded-xl border border-warm-accent text-center space-y-2">
+                        <span class="text-2xl">📜</span>
+                        <blockquote class="italic text-base sm:text-lg font-serif-title text-gray-800">
+                            "Sons que duram e partem de diferentes lugares e que formam uma escultura sonora que dura."
+                        </blockquote>
+                        <span class="block text-xs font-bold text-warm-accent">— Marcel Duchamp (Nota na Green Box / Caixa Verde, redigida c. 1913, pub. 1934)</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4 my-4">
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-warm-accent text-sm">Espacialização Acústica</h4>
+                            <p class="text-xs text-gray-600 mt-1">O som deixa de ser mero vetor temporal e passa a ocupar e esculpir a tridimensionalidade da sala acústica.</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-warm-accent text-sm">Erratum Musical (1913)</h4>
+                            <p class="text-xs text-gray-600 mt-1">Duchamp extraiu notas musicais de um chapéu com suas irmãs, compondo uma das primeiras peças aleatórias e algorítmicas da história[cite: 2].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200">
+                            <h4 class="font-bold text-warm-accent text-sm">A Conexão com 4'33" de Cage</h4>
+                            <p class="text-xs text-gray-600 mt-1">John Cage adotou a máxima duchampiana de que o espectador conclui a obra: o silêncio instrumental é preenchido pela escultura do ruído ambiente.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="comparison" class="py-20 px-6 accent-color">
-            <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold">O Duelo das Vanguardas</h2>
-                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">Embora ambos tenham abraçado o ruído, Futurismo e Dadaísmo tinham motivações e objetivos fundamentalmente diferentes. O gráfico abaixo compara suas filosofias em eixos-chave. Passe o mouse sobre os pontos para mais detalhes.</p>
+        <!-- 5. COMPOSITORAS E O RUÍDO -->
+        <section id="tab-compositoras" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Processos Composicionais</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Compositoras Pioneiras e a Poética do Ruído</h2>
                 </div>
-                <div class="chart-container bg-white p-4 rounded-lg shadow-md">
-                    <canvas id="comparisonChart"></canvas>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <!-- PAULINE OLIVEROS -->
+                    <div class="p-5 bg-warm-neutral rounded-xl border border-gray-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-warm-accent">Pauline Oliveros (1932–2016)</h3>
+                            <span class="text-xs font-semibold bg-warm-accent px-2 py-0.5 rounded text-gray-800">Deep Listening</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                            Oliveros rejeitou a imposição autoritária do som sobre o espaço. Em suas <em>Sonic Meditations</em> (1971), o ruído ambiente de cisternas e salas é enquadrado através da escuta atenta e inclusiva, transformando o ruído urbano e natural em ato comunitário.
+                        </p>
+                    </div>
+
+                    <!-- ÉLIANE RADIGUE -->
+                    <div class="p-5 bg-warm-neutral rounded-xl border border-gray-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-warm-accent">Éliane Radigue (n. 1932)</h3>
+                            <span class="text-xs font-semibold bg-warm-accent px-2 py-0.5 rounded text-gray-800">Síntese Modular & Drones</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                            Aluna de Pierre Schaeffer, Radigue abandonou a colagem frenética para esculpir a microestrutura interna do som com o sintetizador analógico ARP 2500. Sua trilogia <em>Adnos I, II, III</em> trabalha com ruídos harmônicos e batimentos lentíssimos.
+                        </p>
+                    </div>
+
+                    <!-- PAMELA Z -->
+                    <div class="p-5 bg-warm-neutral rounded-xl border border-gray-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-warm-accent">Pamela Z (n. 1956)</h3>
+                            <span class="text-xs font-semibold bg-warm-accent px-2 py-0.5 rounded text-gray-800">Bricolagem Vocal Digital</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                            Pamela Z atualiza a <em>Ursonate</em> dadaísta com controladores gestuais (BodySynth), fragmentando respirações, estalos e fonemas em tempo real com delay digital, loops e camadas polifônicas de ruído vocal.
+                        </p>
+                    </div>
+
+                    <!-- LAURIE SPIEGEL -->
+                    <div class="p-5 bg-warm-neutral rounded-xl border border-gray-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-warm-accent">Laurie Spiegel (n. 1945)</h3>
+                            <span class="text-xs font-semibold bg-warm-accent px-2 py-0.5 rounded text-gray-800">Computação Algorítmica</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                            Trabalhando no Bell Labs com o sistema GROOVE, Spiegel programou algoritmos para síntese inarmônica e texturas densas em obras como <em>The Expanding Universe</em> (1974), concretizando a síntese digital como ferramenta composicional.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="legacy" class="py-20 px-6">
-            <div class="container mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold">O Legado Sonoro</h2>
-                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">As explorações radicais do Futurismo e do Dadaísmo não terminaram com eles. Elas criaram um caminho que influenciou profundamente a música experimental do século XX e continua a ecoar hoje. Clique nos itens da linha do tempo para explorar a evolução.</p>
+        <!-- 6. MÚSICA POPULAR & MÚSICA BRASILEIRA -->
+        <section id="tab-musica-popular" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Diálogos Contemporâneos</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">A Herança do Ruído: Rock, Glitch e a Cena Brasileira</h2>
                 </div>
-                
-                <div class="relative max-w-2xl mx-auto border-l-2 border-dashed border-gray-300">
+
+                <div class="prose max-w-none text-gray-700 text-sm sm:text-base space-y-5 leading-relaxed">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-2">
+                            <h3 class="font-bold text-base text-gray-800">Rock, Distorção & Glitch</h3>
+                            <p class="text-xs sm:text-sm text-gray-600">
+                                A saturação de válvulas, o pedal de Fuzz e a microfonia de Jimi Hendrix e Sonic Youth são a instrumentalização direta do ruído elétrico. No gênero <em>Glitch</em> (Oval, Alva Noto), o erro de leitura digital e o ruído de quantização tornam-se a própria matéria poética.
+                            </p>
+                        </div>
+                        <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-2">
+                            <h3 class="font-bold text-base text-gray-800">Tropicália Antropofágica (MPB)</h3>
+                            <p class="text-xs sm:text-sm text-gray-600">
+                                Caetano Veloso, Gilberto Gil e Os Mutantes aplicaram colagens sonoras em "Bat Macumba" (1968)[cite: 5], fundindo guitarras distorcidas com atabaques do candomblé como gesto de choque estético contra a ditadura militar e o purismo[cite: 5].
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-800">A Herança Instrumental Acústica Brasileira</h3>
+                    <div class="grid md:grid-cols-2 gap-6 my-2">
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200 space-y-1">
+                            <h4 class="font-bold text-warm-accent text-sm">Naná Vasconcelos (1944–2016)</h4>
+                            <p class="text-xs text-gray-600">Revolucionou o berimbau e a percussão com sussurros, estalos corporais e respirações, tratando o ruído orgânico como textura orquestral[cite: 5].</p>
+                        </div>
+                        <div class="p-4 bg-warm-neutral rounded-lg border border-gray-200 space-y-1">
+                            <h4 class="font-bold text-warm-accent text-sm">Hermeto Pascoal (n. 1936)</h4>
+                            <p class="text-xs text-gray-600">Com a filosofia de que "tudo é música", Hermeto organiza bacias d'água, chaleiras, brinquedos e ruídos de animais em estruturas harmônicas e rítmicas de virtuosismo absoluto[cite: 5].</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. GALERIA VISUAL & CENTRO AUDIOVISUAL DE MÍDIA -->
+        <section id="tab-galeria-midia" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Documentação Visual & Sonora</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Galeria de Obras Iconográficas e Reprodutores de Mídia</h2>
+                    <p class="text-xs sm:text-sm text-gray-600">Estude as imagens históricas dos manifestos, partituras e instrumentos, e execute os áudios e vídeos diretamente nos cards abaixo:</p>
+                </div>
+
+                <!-- CARDS MULTIMÍDIA COM IMAGENS E LAZY-LOAD PLAYERS -->
+                <div class="grid md:grid-cols-2 gap-6">
                     
-                    <div id="timeline-item-1" class="timeline-item pl-8 pb-12 cursor-pointer">
-                        <h3 class="text-xl font-bold mb-1">Vanguardas (1910s)</h3>
-                        <p class="text-sm font-semibold accent-text">Futurismo & Dadaísmo</p>
-                        <div class="timeline-content">
-                            <p class="mt-2 text-sm text-gray-600">Introduzem o ruído como material musical, seja para celebrar a máquina (Futurismo) ou para protestar através do caos (Dadaísmo). Quebram a noção de que a música deve ser apenas harmoniosa.</p>
+                    <!-- CARD 1: LUIGI RUSSOLO & INTONARUMORI -->
+                    <div class="media-card p-5 space-y-3">
+                        <div class="h-44 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
+                            <!-- Placeholder ilustrado de acervo -->
+                            <div class="text-center p-4">
+                                <span class="text-4xl block mb-1">⚙️🎺</span>
+                                <span class="text-xs font-bold text-gray-700">Luigi Russolo & Ugo Piatti com os Intonarumori (1913–1914)</span>
+                                <span class="block text-[10px] text-gray-500">Foto histórica dos primeiros geradores mecânicos de ruído</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-base text-gray-800">Luigi Russolo — Risveglio di una città (1913)</h3>
+                        <p class="text-xs text-gray-600 leading-normal">
+                            Partitura gráfica e execução histórica da primeira peça escrita exclusivamente para a orquestra de Intonarumori.
+                        </p>
+                        <div id="player-russolo" class="p-3 bg-warm-accent/40 rounded text-center text-xs font-bold cursor-pointer hover:bg-warm-accent transition" onclick="loadYoutube('player-russolo', 'cJ5rSCg0iOM')">
+                            ▶️ Carregar Áudio Histórico (YouTube)
                         </div>
                     </div>
 
-                    <div id="timeline-item-2" class="timeline-item pl-8 pb-12 cursor-pointer">
-                        <h3 class="text-xl font-bold mb-1">John Cage (1940s-50s)</h3>
-                        <p class="text-sm font-semibold accent-text">Indeterminação & Piano Preparado</p>
-                        <div class="timeline-content">
-                            <p class="mt-2 text-sm text-gray-600">Influenciado diretamente pelo Dadaísmo, Cage levou o conceito de "anti-arte" a novos patamares. Usou operações de acaso (I-Ching) para remover a intenção do compositor e o "piano preparado" (modificando o instrumento com objetos) para criar novos timbres, democratizando as fontes sonoras.</p>
+                    <!-- CARD 2: KURT SCHWITTERS & URSONATE -->
+                    <div class="media-card p-5 space-y-3">
+                        <div class="h-44 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
+                            <div class="text-center p-4">
+                                <span class="text-4xl block mb-1">🗣️📑</span>
+                                <span class="text-xs font-bold text-gray-700">Kurt Schwitters: Tipografia da Ursonate (Merz 24, 1932)</span>
+                                <span class="block text-[10px] text-gray-500">A forma sonata clássica preenchida por fonemas a-semânticos</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-base text-gray-800">Kurt Schwitters — Ursonate (Gravação Histórica)</h3>
+                        <p class="text-xs text-gray-600 leading-normal">
+                            O próprio Schwitters recitando os movimentos da sonata primordial com articulação rítmica e fonética.
+                        </p>
+                        <div id="player-schwitters" class="p-3 bg-warm-accent/40 rounded text-center text-xs font-bold cursor-pointer hover:bg-warm-accent transition" onclick="loadYoutube('player-schwitters', 'PDMpe08s82Y')">
+                            ▶️ Carregar Gravação Canônica (YouTube)
                         </div>
                     </div>
 
-                    <div id="timeline-item-3" class="timeline-item pl-8 pb-12 cursor-pointer">
-                        <h3 class="text-xl font-bold mb-1">Música Eletroacústica (1950s)</h3>
-                        <p class="text-sm font-semibold accent-text">Musique Concrète & Elektronische Musik</p>
-                        <div class="timeline-content">
-                            <p class="mt-2 text-sm text-gray-600">A tecnologia de gravação realizou o sonho futurista. A *Musique Concrète* (Pierre Schaeffer) manipulava sons gravados do mundo real, enquanto a *Elektronische Musik* (Stockhausen) criava sons a partir de geradores eletrônicos. Ambas tratavam o timbre e a textura como elementos primários.</p>
+                    <!-- CARD 3: MARCEL DUCHAMP & ERRATUM MUSICAL -->
+                    <div class="media-card p-5 space-y-3">
+                        <div class="h-44 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
+                            <div class="text-center p-4">
+                                <span class="text-4xl block mb-1">🎲🎼</span>
+                                <span class="text-xs font-bold text-gray-700">Marcel Duchamp: Erratum Musical (Manuscrito, 1913)</span>
+                                <span class="block text-[10px] text-gray-500">Composição procedural através de operações de sorteio</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-base text-gray-800">Marcel Duchamp — Erratum Musical (1913)</h3>
+                        <p class="text-xs text-gray-600 leading-normal">
+                            Interpretação para vozes e instrumentos baseada na partitura aleatória da Caixa Verde.
+                        </p>
+                        <div id="player-duchamp" class="p-3 bg-warm-accent/40 rounded text-center text-xs font-bold cursor-pointer hover:bg-warm-accent transition" onclick="loadYoutube('player-duchamp', 'oXkPrNTjK3w')">
+                            ▶️ Carregar Gravação da Peça (YouTube)
                         </div>
                     </div>
 
-                    <div id="timeline-item-4" class="timeline-item pl-8 cursor-pointer">
-                        <h3 class="text-xl font-bold mb-1">Música Contemporânea (1970s - Hoje)</h3>
-                        <p class="text-sm font-semibold accent-text">Noise, Industrial, Glitch</p>
-                        <div class="timeline-content">
-                            <p class="mt-2 text-sm text-gray-600">O legado continua em gêneros que abraçam o ruído como estética central. A Música Industrial usa sons de fábrica, o Noise Rock usa distorção extrema e o Glitch usa os sons de erros digitais. Todos são descendentes diretos da revolução iniciada há mais de um século.</p>
+                    <!-- CARD 4: EDGARD VARÈSE & IONISATION -->
+                    <div class="media-card p-5 space-y-3">
+                        <div class="h-44 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
+                            <div class="text-center p-4">
+                                <span class="text-4xl block mb-1">🥁🚨</span>
+                                <span class="text-xs font-bold text-gray-700">Edgard Varèse: Ionisation (1929–1931)</span>
+                                <span class="block text-[10px] text-gray-500">13 percussionistas, sirenes elétricas e massas sonoras</span>
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-base text-gray-800">Edgard Varèse — Ionisation (Regência: Pierre Boulez)</h3>
+                        <p class="text-xs text-gray-600 leading-normal">
+                            Obra inaugural para conjunto de percussão sem altura definida e sirenes contínuas.
+                        </p>
+                        <div id="player-varese" class="p-3 bg-warm-accent/40 rounded text-center text-xs font-bold cursor-pointer hover:bg-warm-accent transition" onclick="loadYoutube('player-varese', '1lpAXz79oAI')">
+                            ▶️ Carregar Performance de Referência (YouTube)
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. LABORATÓRIO ESPECTRAL E RADAR COMPARATIVO -->
+        <section id="tab-laboratorio" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Laboratório Interativo</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Simulador de Espectro Acústico & Radar Filosófico</h2>
+                </div>
+
+                <!-- SIMULADOR ESPECTRAL -->
+                <div class="bg-warm-neutral p-6 rounded-xl border border-gray-200 space-y-4">
+                    <h3 class="font-bold text-base text-gray-800">Curvas de Densidade Espectral de Ruído</h3>
+                    <p class="text-xs text-gray-600">Selecione a distribuição de energia espectral para analisar as cores de ruído:</p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <button onclick="updateSpectrumChart('white')" class="px-3 py-1.5 bg-white border border-gray-300 rounded hover:bg-warm-accent font-semibold">Ruído Branco (Uniforme)</button>
+                        <button onclick="updateSpectrumChart('pink')" class="px-3 py-1.5 bg-white border border-gray-300 rounded hover:bg-warm-accent font-semibold">Ruído Rosa (-3 dB/oitava)</button>
+                        <button onclick="updateSpectrumChart('brown')" class="px-3 py-1.5 bg-white border border-gray-300 rounded hover:bg-warm-accent font-semibold">Ruído Marrom (-6 dB/oitava)</button>
+                        <button onclick="updateSpectrumChart('inharmonic')" class="px-3 py-1.5 bg-white border border-gray-300 rounded hover:bg-warm-accent font-semibold">Espectro Inarmônico (Gongo/Prato)</button>
+                    </div>
+
+                    <div class="chart-container bg-white p-4 rounded-lg shadow-inner">
+                        <canvas id="spectrumChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- RADAR COMPARATIVO -->
+                <div class="bg-warm-neutral p-6 rounded-xl border border-gray-200 space-y-4">
+                    <h3 class="font-bold text-base text-gray-800">Radar de Dimensões Estéticas e Composicionais</h3>
+                    <p class="text-xs text-gray-600">Comparação analítica das correntes em torno de 6 eixos conceituais:</p>
+                    <div class="chart-container bg-white p-4 rounded-lg shadow-inner">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. EXERCÍCIOS DE FIXAÇÃO -->
+        <section id="tab-exercicios" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Avaliação Formativa</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Exercícios de Fixação & Chaves de Correção</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-3">
+                        <h3 class="font-bold text-sm sm:text-base text-gray-800">Questão 1: Por que o conceito de inarmonicidade acústica impede a percepção de uma nota definida?</h3>
+                        <button onclick="toggleAnswer('q1-ans')" class="px-3 py-1.5 bg-warm-accent text-gray-800 text-xs font-bold rounded hover:bg-warm-dark-accent">Ver Chave de Correção</button>
+                        <div id="q1-ans" class="answer-box p-4 bg-white rounded border border-warm-accent text-xs sm:text-sm space-y-1">
+                            <p><strong>Resposta Esperada:</strong> Porque os parciais de frequência não guardam relações de múltiplos inteiros com uma frequência fundamental ($F_0$). Sem a série harmônica periódica, a membrana basilar coclear não consegue sincronizar uma taxa de disparo neural periódica, resultando na percepção de banda larga inarmônica e textura timbrística.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-3">
+                        <h3 class="font-bold text-sm sm:text-base text-gray-800">Questão 2: Qual a principal diferença filosófica entre a "Arte dos Ruídos" de Russolo e a "Anti-Arte" Dadaísta?</h3>
+                        <button onclick="toggleAnswer('q2-ans')" class="px-3 py-1.5 bg-warm-accent text-gray-800 text-xs font-bold rounded hover:bg-warm-dark-accent">Ver Chave de Correção</button>
+                        <div id="q2-ans" class="answer-box p-4 bg-white rounded border border-warm-accent text-xs sm:text-sm space-y-1">
+                            <p><strong>Resposta Esperada:</strong> Russolo buscava a <em>organização e instrumentalização</em> do ruído moderno, construindo uma nova sintaxe composicional com os Intonarumori. O Dadaísmo utilizava o ruído e o nonsense como <em>protesto, sabotagem e desconstrução</em> da própria instituição arte em reação aos horrores da Primeira Guerra Mundial.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-warm-neutral rounded-lg border border-gray-200 space-y-3">
+                        <h3 class="font-bold text-sm sm:text-base text-gray-800">Questão 3: Como a "Escultura Musical" de Marcel Duchamp influenciou a estética de John Cage?</h3>
+                        <button onclick="toggleAnswer('q3-ans')" class="px-3 py-1.5 bg-warm-accent text-gray-800 text-xs font-bold rounded hover:bg-warm-dark-accent">Ver Chave de Correção</button>
+                        <div id="q3-ans" class="answer-box p-4 bg-white rounded border border-warm-accent text-xs sm:text-sm space-y-1">
+                            <p><strong>Resposta Esperada:</strong> Duchamp concebeu o som como uma presença espacial duradoura que emancipa qualquer vibração como arte (Readymade sonoro). John Cage transformou essa proposição em método composicional através do acaso e do silêncio instrumental em <em>4'33"</em>, onde os ruídos fortuitos da sala de concerto constituem a própria escultura sonora.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="exercises" class="py-20 px-6 accent-color">
-            <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold">Exercícios de Fixação</h2>
-                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">Teste seus conhecimentos sobre o Futurismo e o Dadaísmo na música. Clique para revelar as respostas e comentários.</p>
+        <!-- 10. BIBLIOGRAFIA ESPECIALIZADA -->
+        <section id="tab-bibliografia" class="tab-content space-y-8">
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-warm-accent">Pesquisa & Fontes Primárias</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mt-1">Referências Bibliográficas Especializadas (ABNT)</h2>
                 </div>
 
-                <div class="space-y-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                        <h4 class="font-bold text-lg mb-4">Pergunta 1: Qual o principal objetivo de Luigi Russolo ao criar os *intonarumori*?</h4>
-                        <ul class="list-disc list-inside text-sm space-y-2 mb-4">
-                            <li>A) Criar instrumentos para a orquestra sinfônica tradicional.</li>
-                            <li>B) Musicalizar os ruídos do ambiente industrial e urbano.</li>
-                            <li>C) Compor melodias atonais.</li>
-                            <li>D) Desenvolver novas técnicas de canto.</li>
+                <div class="grid md:grid-cols-2 gap-6 text-xs sm:text-sm text-gray-700">
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-base text-warm-accent">Fontes Primárias & Canônicas</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>BALL, Hugo. <strong>Flight Out of Time: A Dada Diary</strong>. Ed. John Elderfield. Berkeley: University of California Press, 1996.</li>
+                            <li>BÜRGER, Peter. <strong>Theory of the Avant-Garde</strong>. Minneapolis: University of Minnesota Press, 1984.</li>
+                            <li>CAGE, John. <strong>Silence: Lectures and Writings</strong>. Middletown: Wesleyan University Press, 1961.</li>
+                            <li>DUCHAMP, Marcel. <strong>The Essential Writings of Marcel Duchamp</strong>. London: Thames & Hudson, 1975.</li>
+                            <li>MARINETTI, Filippo Tommaso. <strong>Manifesto Futurista</strong>. Le Figaro, Paris, 20 fev. 1909.</li>
+                            <li>RUSSOLO, Luigi. <strong>A Arte dos Ruídos (L’arte dei rumori)</strong>. Tradução e notas de Denise Garcia. São Paulo: Editora UNESP, 2008 [1913].</li>
+                            <li>SCHWITTERS, Kurt. <strong>Ursonate (1922–1932)</strong>. Hannover: Merz 24, 1932.</li>
                         </ul>
-                        <button onclick="toggleAnswer('q1')" class="bg-accent-text text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors">Ver Resposta</button>
-                        <div id="q1-answer" class="answer-box">
-                            <p><strong class="accent-text">Resposta Correta: B</strong></p>
-                            <p class="text-sm mt-2">Comentário: Russolo, em "A Arte dos Ruídos", defendia a incorporação do "som-ruído" na arte musical, acreditando que os sons orquestrais poderiam ser enriquecidos por sonoridades inovadoras e surpreendentes, para as quais ele criou os *intonarumori*.</p>
-                        </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                        <h4 class="font-bold text-lg mb-4">Pergunta 2: O que a obra "Ursonate" de Kurt Schwitters representa no contexto do Dadaísmo?</h4>
-                        <ul class="list-disc list-inside text-sm space-y-2 mb-4">
-                            <li>A) Uma ópera tradicional com elementos de ruído.</li>
-                            <li>B) Um concerto para *intonarumori*.</li>
-                            <li>C) Um poema fonético que utiliza fonemas e fragmentos silábicos como material sonoro, aplicando princípios da forma sonata.</li>
-                            <li>D) Uma composição para piano preparado.</li>
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-base text-warm-accent">Historiografia Crítica & Estudos Brasileiros</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>BERGHAUS, Günter. <strong>Futurism and Politics: Between Anarchist Rebellion and Fascist Reaction, 1909–1944</strong>. Oxford: Berghahn Books, 1996.</li>
+                            <li>CHESSA, Luciano. <strong>Luigi Russolo, Futurist: Noise, Visual Arts, and the Occult</strong>. Berkeley: University of California Press, 2012.</li>
+                            <li>DICKERMAN, Leah (Ed.). <strong>Dada: Zurich, Berlin, Hannover, Cologne, New York, Paris</strong>. Washington: National Gallery of Art, 2005.</li>
+                            <li>HEMUS, Ruth. <strong>Dada's Women</strong>. New Haven: Yale University Press, 2009.</li>
+                            <li>MERJIAN, Ara H. <strong>Futurism: A Very Short Introduction</strong>. Oxford: Oxford University Press, 2025.</li>
+                            <li>POGGI, Christine. <strong>Inventing Futurism: The Art and Politics of Artificial Optimism</strong>. Princeton: Princeton University Press, 2009.</li>
+                            <li>ANTUNES, Jorge. <strong>Música Eletroacústica: História e Estética</strong>. Brasília: Editora UnB, 2004.</li>
                         </ul>
-                        <button onclick="toggleAnswer('q2')" class="bg-accent-text text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors">Ver Resposta</button>
-                        <div id="q2-answer" class="answer-box">
-                            <p><strong class="accent-text">Resposta Correta: C</strong></p>
-                            <p class="text-sm mt-2">Comentário: A "Ursonate" é um exemplo claro da abordagem Dadaísta de desconstrução da linguagem e da forma musical, usando sons sem significado literal para criar uma estrutura musical.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                        <h4 class="font-bold text-lg mb-4">Pergunta 3: Qual a principal diferença filosófica entre o Futurismo e o Dadaísmo em relação ao ruído?</h4>
-                        <ul class="list-disc list-inside text-sm space-y-2 mb-4">
-                            <li>A) Futurismo celebrava o ruído como progresso; Dadaísmo o usava para protesto e caos.</li>
-                            <li>B) Futurismo rejeitava o ruído; Dadaísmo o aceitava.</li>
-                            <li>C) Ambos viam o ruído da mesma forma.</li>
-                            <li>D) Futurismo focava em ruídos naturais; Dadaísmo em ruídos urbanos.</li>
-                        </ul>
-                        <button onclick="toggleAnswer('q3')" class="bg-accent-text text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors">Ver Resposta</button>
-                        <div id="q3-answer" class="answer-box">
-                            <p><strong class="accent-text">Resposta Correta: A</strong></p>
-                            <p class="text-sm mt-2">Comentário: O Futurismo via o ruído como o som da modernidade a ser incorporado e organizado, enquanto o Dadaísmo o empregava como uma ferramenta de subversão e reflexo do absurdo do mundo pós-guerra.</p>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="references" class="py-20 px-6">
-            <div class="container mx-auto">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold">Referências Bibliográficas</h2>
-                    <p class="max-w-2xl mx-auto mt-2 text-gray-600">Uma seleção de obras clássicas, canônicas e atuais para aprofundar seus estudos.</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-2xl font-bold mb-4 accent-text">Clássicas/Canônicas</h3>
-                        <ul class="list-disc list-inside space-y-3 text-gray-700">
-                            <li>RUSSOLO, Luigi. <cite>A Arte dos Ruídos (L’arte dei rumori)</cite>. 1913.</li>
-                            <li>SCHWITTERS, Kurt. <cite>Ursonate</cite>. 1922-32.</li>
-                            <li>CAGE, John. <cite>Silence: Lectures and Writings</cite>. Wesleyan University Press, 1961.</li>
-                            <li>SCHAEFFER, Pierre. <cite>À la recherche d'une musique concrète</cite>. Seuil, 1952.</li>
-                            <li>STOCKHAUSEN, Karlheinz. <cite>Texte zur elektronischen und instrumentalen Musik</cite>. DuMont, 1963-1978.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-4 accent-text">Atuais/Complementares</h3>
-                        <ul class="list-disc list-inside space-y-3 text-gray-700">
-                            <li>ATTALI, Jacques. <cite>Noise: The Political Economy of Music</cite>. University of Minnesota Press, 1985.</li>
-                            <li>LICHT, Alan. <cite>Sound Art: Beyond Music, Between Categories</cite>. Rizzoli, 2007.</li>
-                            <li>PRIEST, Eldritch. <cite>Boring Formless Nonsense: Experimental Music and The Aesthetics of Failure</cite>. Bloomsbury Academic, 2013.</li>
-                            <li>COX, Christoph; WARNER, Daniel (Eds.). <cite>Audio Culture: Readings in Modern Music</cite>. Continuum, 2004.</li>
-                            <li>CASCON, Rafael. <cite>NOISE MUSIC: O ruído como material criativo</cite>. UNESP, 2017.</li>
-                            <li>CHION, Michel. <cite>Audio-Vision: Sound on Screen</cite>. Columbia University Press, 1994.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto text-center text-sm">
-            <p>Aplicação interativa baseada no roteiro de aula "Primeiras Explorações: Do Ruído na Música do Século XX".</p>
-            <p class="mt-2 text-gray-400">&copy; 2026 - Desenvolvido para fins educacionais.</p>
+    <!-- RODAPÉ -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 space-y-2">
+            <p class="font-semibold text-gray-200">Disciplina de Composição Musical &bull; Explorando Sons de Altura Não Definida</p>
+            <p>Universidade Estadual de Campinas (UNICAMP) &bull; Conteúdo Acadêmico de Pós-Graduação</p>
+            <p>© 2026 &bull; Plataforma Educacional Integrada</p>
         </div>
     </footer>
 
+    <!-- SCRIPTS INTERATIVOS & CHART.JS -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabs = {
-                futurism: document.getElementById('tab-futurism'),
-                dadaism: document.getElementById('tab-dadaism'),
-            };
-            const contents = {
-                futurism: document.getElementById('content-futurism'),
-                dadaism: document.getElementById('content-dadaism'),
-                exercises: document.getElementById('exercises'),
-                references: document.getElementById('references'),
-            };
+        let spectrumChartInstance = null;
+        let comparisonChartInstance = null;
 
-            function switchTab(tabName) {
-                // Remove 'active' from all tab buttons
-                const allTabButtons = document.querySelectorAll('.nav-link');
-                allTabButtons.forEach(btn => btn.classList.remove('active'));
+        function switchMainTab(tabId) {
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => tab.classList.remove('active'));
 
-                // Hide all content sections
-                const allContentSections = document.querySelectorAll('section');
-                allContentSections.forEach(sec => {
-                    if (sec.id !== tabName) { // Keep the target section visible
-                        sec.style.display = 'none';
-                    }
-                });
+            const allNavBtns = document.querySelectorAll('.nav-btn');
+            allNavBtns.forEach(btn => btn.classList.remove('active'));
 
-                // Add 'active' to the clicked tab button
-                const targetTabButton = document.querySelector(`.nav-link[href="#${tabName}"]`);
-                if (targetTabButton) {
-                    targetTabButton.classList.add('active');
-                }
-                
-                // Show the target content section
-                const targetContent = document.getElementById(tabName);
-                if (targetContent) {
-                    targetContent.style.display = 'block';
-                }
+            const selectedTab = document.getElementById(`tab-${tabId}`);
+            if (selectedTab) selectedTab.classList.add('active');
 
-                // Scroll to the target section
-                document.querySelector(`#${tabName}`).scrollIntoView({
-                    behavior: 'smooth'
-                });
+            const selectedBtn = document.getElementById(`btn-${tabId}`);
+            if (selectedBtn) selectedBtn.classList.add('active');
+
+            if (tabId === 'laboratorio') {
+                setTimeout(() => {
+                    initSpectrumChart();
+                    initComparisonChart();
+                }, 100);
             }
+        }
 
-            // Event listeners for the main navigation links
-            document.querySelector('.nav-link[href="#introduction"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('introduction'); });
-            document.querySelector('.nav-link[href="#movements"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('movements'); });
-            document.querySelector('.nav-link[href="#comparison"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('comparison'); });
-            document.querySelector('.nav-link[href="#legacy"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('legacy'); });
-            document.querySelector('.nav-link[href="#exercises"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('exercises'); });
-            document.querySelector('.nav-link[href="#references"]').addEventListener('click', (e) => { e.preventDefault(); switchTab('references'); });
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const textNodes = document.querySelectorAll('.prose p, .prose h3, .prose h4, .prose li, .media-card');
 
-
-            // Event listeners for the Futurism/Dadaism sub-tabs
-            document.getElementById('tab-futurism').addEventListener('click', () => {
-                document.getElementById('tab-futurism').classList.add('active');
-                document.getElementById('tab-dadaism').classList.remove('active');
-                document.getElementById('content-futurism').classList.add('active');
-                document.getElementById('content-dadaism').classList.remove('active');
-            });
-            document.getElementById('tab-dadaism').addEventListener('click', () => {
-                document.getElementById('tab-dadaism').classList.add('active');
-                document.getElementById('tab-futurism').classList.remove('active');
-                document.getElementById('content-dadaism').classList.add('active');
-                document.getElementById('content-futurism').classList.remove('active');
-            });
-
-
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            timelineItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const wasActive = item.classList.contains('active');
-                    timelineItems.forEach(i => i.classList.remove('active'));
-                    if (!wasActive) {
-                        item.classList.add('active');
-                    }
-                });
-            });
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-
-            // Initial state: hide all sections except the first one
-            sections.forEach((section, index) => {
-                if (index !== 0) {
-                    section.style.display = 'none';
+            textNodes.forEach(node => {
+                if (query.length > 2 && node.innerText.toLowerCase().includes(query)) {
+                    node.classList.add('bg-yellow-100');
+                } else {
+                    node.classList.remove('bg-yellow-100');
                 }
             });
-            // Set the first nav-link as active initially
-            if (navLinks.length > 0) {
-                navLinks[0].classList.add('active');
+        }
+
+        function toggleAnswer(ansId) {
+            const box = document.getElementById(ansId);
+            if (box) {
+                box.style.display = (box.style.display === 'block') ? 'none' : 'block';
             }
+        }
 
+        function loadYoutube(containerId, videoId) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <iframe class="w-full h-48 rounded shadow" src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                            title="YouTube player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                `;
+            }
+        }
 
-            const ctx = document.getElementById('comparisonChart').getContext('2d');
-            const data = {
-                labels: [
-                    'Atitude para com a Tecnologia',
-                    'Abordagem ao Ruído',
-                    'Objetivo Principal',
-                    'Relação com a Tradição',
-                    'Método Principal',
-                    'Tom Filosófico'
-                ],
-                datasets: [{
-                    label: 'Futurismo',
-                    data: [10, 8, 7, 3, 8, 9],
-                    fill: true,
-                    backgroundColor: 'rgba(218, 192, 163, 0.2)',
-                    borderColor: 'rgb(218, 192, 163)',
-                    pointBackgroundColor: 'rgb(218, 192, 163)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(218, 192, 163)'
-                }, {
-                    label: 'Dadaísmo',
-                    data: [4, 9, 9, 1, 9, 2],
-                    fill: true,
-                    backgroundColor: 'rgba(164, 117, 81, 0.2)',
-                    borderColor: 'rgb(164, 117, 81)',
-                    pointBackgroundColor: 'rgb(164, 117, 81)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(164, 117, 81)'
-                }]
-            };
+        function initSpectrumChart() {
+            const ctx = document.getElementById('spectrumChart');
+            if (!ctx) return;
 
-            const tooltipsText = {
-                'Atitude para com a Tecnologia': {
-                    'Futurismo': 'Glorificação: A máquina era uma musa.',
-                    'Dadaísmo': 'Irônica: Usada como ferramenta de desconstrução.'
-                },
-                'Abordagem ao Ruído': {
-                    'Futurismo': 'Organização: Controlar e musicalizar o ruído.',
-                    'Dadaísmo': 'Caos: Usar o ruído como provocação e absurdo.'
-                },
-                'Objetivo Principal': {
-                    'Futurismo': 'Criar uma nova arte para o futuro.',
-                    'Dadaísmo': 'Destruir a noção de arte (Anti-Arte).'
-                },
-                'Relação com a Tradição': {
-                    'Futurismo': 'Rejeição radical para abraçar o futuro.',
-                    'Dadaísmo': 'Negação completa da tradição e da lógica.'
-                },
-                 'Método Principal': {
-                    'Futurismo': 'Controle composicional, instrumentos específicos.',
-                    'Dadaísmo': 'Acaso, improvisação, objetos encontrados.'
-                },
-                 'Tom Filosófico': {
-                    'Futurismo': 'Otimista, enérgico, às vezes agressivo.',
-                    'Dadaísmo': 'Niilista, irônico, absurdo, anárquico.'
-                }
-            };
+            if (spectrumChartInstance) spectrumChartInstance.destroy();
 
-            new Chart(ctx, {
-                type: 'radar',
-                data: data,
+            const frequencies = ['63Hz', '125Hz', '250Hz', '500Hz', '1kHz', '2kHz', '4kHz', '8kHz', '16kHz'];
+
+            spectrumChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: frequencies,
+                    datasets: [{
+                        label: 'Ruído Branco (Uniforme)',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        borderColor: '#A47551',
+                        backgroundColor: 'rgba(164, 117, 81, 0.15)',
+                        fill: true,
+                        tension: 0.15
+                    }]
+                },
                 options: {
+                    responsive: true,
                     maintainAspectRatio: false,
-                    elements: {
-                        line: {
-                            borderWidth: 3
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Energia Relativa (dB)' },
+                            min: -30,
+                            max: 5
+                        },
+                        x: {
+                            title: { display: true, text: 'Frequência (Hz)' }
                         }
-                    },
+                    }
+                }
+            });
+        }
+
+        function updateSpectrumChart(type) {
+            if (!spectrumChartInstance) initSpectrumChart();
+
+            let newData = [];
+            let labelName = '';
+
+            if (type === 'white') {
+                newData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+                labelName = 'Ruído Branco (0 dB/oitava)';
+            } else if (type === 'pink') {
+                newData = [0, -3, -6, -9, -12, -15, -18, -21, -24];
+                labelName = 'Ruído Rosa (-3 dB/oitava)';
+            } else if (type === 'brown') {
+                newData = [0, -6, -12, -18, -24, -30, -36, -42, -48];
+                labelName = 'Ruído Marrom (-6 dB/oitava)';
+            } else if (type === 'inharmonic') {
+                newData = [-12, 2, -18, -1, -20, 3, -8, -22, -4];
+                labelName = 'Espectro Inarmônico (Picos Irregulares)';
+            }
+
+            spectrumChartInstance.data.datasets[0].data = newData;
+            spectrumChartInstance.data.datasets[0].label = labelName;
+            spectrumChartInstance.update();
+        }
+
+        function initComparisonChart() {
+            const ctx = document.getElementById('comparisonChart');
+            if (!ctx) return;
+
+            if (comparisonChartInstance) comparisonChartInstance.destroy();
+
+            comparisonChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Glorificação Tecnológica',
+                        'Provocação / Anti-Arte',
+                        'Organização do Ruído',
+                        'Acaso / Aleatoriedade',
+                        'Engajamento Político Crítico',
+                        'Escultura e Espaço'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Futurismo (Russolo/Marinetti)',
+                            data: [10, 6, 9, 3, 5, 4],
+                            borderColor: '#A47551',
+                            backgroundColor: 'rgba(164, 117, 81, 0.25)'
+                        },
+                        {
+                            label: 'Dadaísmo (Schwitters/Duchamp)',
+                            data: [3, 10, 4, 10, 9, 8],
+                            borderColor: '#DAC0A3',
+                            backgroundColor: 'rgba(218, 192, 163, 0.35)'
+                        },
+                        {
+                            label: 'Compositoras (Oliveros/Radigue)',
+                            data: [6, 4, 8, 7, 7, 10],
+                            borderColor: '#4B3F38',
+                            backgroundColor: 'rgba(75, 63, 56, 0.25)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: { color: 'rgba(75, 63, 56, 0.1)' },
-                            grid: { color: 'rgba(75, 63, 56, 0.1)' },
-                            pointLabels: {
-                                font: {
-                                    size: 10,
-                                    family: "'Montserrat', sans-serif"
-                                },
-                                color: '#4B3F38'
-                            },
-                            ticks: {
-                                backdropColor: 'rgba(253, 253, 251, 0.75)',
-                                color: '#4B3F38',
-                                stepSize: 2,
-                                font: {
-                                    size: 9
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    family: "'Montserrat', sans-serif"
-                                }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    const characteristic = context.chart.data.labels[context.dataIndex];
-                                    label += tooltipsText[characteristic][context.dataset.label];
-                                    return label;
-                                }
-                            }
+                            min: 0,
+                            max: 10,
+                            ticks: { stepSize: 2 }
                         }
                     }
                 }
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Hub Educacional Avançado carregado.");
         });
-
-        function showNoiseDetails(title, description) {
-            const container = document.getElementById('noise-details');
-            document.getElementById('noise-title').innerText = title;
-            document.getElementById('noise-description').innerText = description;
-            container.classList.remove('hidden');
-        }
-
-        function toggleAnswer(questionId) {
-            const answerBox = document.getElementById(`${questionId}-answer`);
-            answerBox.style.display = answerBox.style.display === 'block' ? 'none' : 'block';
-        }
     </script>
 </body>
 </html>
